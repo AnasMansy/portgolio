@@ -52,3 +52,43 @@ showMoreButtons.forEach((showMoreButton) => {
   showLessButton.addEventListener('mousedown', collapseDescription);
   showLessButton.addEventListener('pointerdown', collapseDescription);
 });
+
+//contact
+
+ // Smooth Scroll Effect
+ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+      });
+  });
+});
+
+
+       emailjs.init('TgwopmajhVuy6JelE');  
+
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+ 
+        emailjs.send('service_kclhxas', 'template_qfiedd1', {
+            'from_name': formData.get('name'),
+            'from_email': formData.get('email'),
+            'message': formData.get('message'),
+        })
+        .then(function (response) {
+            console.log('Email sent successfully:', response);
+            // Optionally, show a success message to the user
+            alert('Message sent successfully! Thank you.');
+            form.reset();
+        }, function (error) {
+            console.log('Failed to send email:', error);
+            // Optionally, show an error message to the user
+            alert('Failed to send message. Please try again later.');
+        });
+    });
+    
+    
